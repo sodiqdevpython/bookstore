@@ -6,11 +6,11 @@
 
 {% block breadcrumbs %}
   <div class="breadcrumbs">
-    <a href="{% url "admin:index" %}">Home</a> &rsaquo;
-    <a href="{% url "admin:orders_order_changelist" %}">Orders</a>
+    <a href="{% url "admin:index" %}">Asosiy</a> &rsaquo;
+    <a href="{% url "admin:orders_order_changelist" %}">Buyurtmalar</a>
     &rsaquo;
-    <a href="{% url "admin:orders_order_change" order.id %}">Order {{ order.id }}</a>
-    &rsaquo; Detail
+    <a href="{% url "admin:orders_order_change" order.id %}">Buyurtma {{ order.id }}</a>
+    &rsaquo; Detal
   </div>
 {% endblock %}
 
@@ -18,16 +18,16 @@
 <h1>Order {{ order.id }}</h1>
 <ul class="object-tools">
   <li>
-    <a href="#" onclick="window.print();">Print order</a>
+    <a href="#" onclick="window.print();">Chop etish</a>
   </li>
 </ul>
 <table>
   <tr>
-    <th>Created</th>
+    <th>Yaratildi</th>
     <td>{{ order.created }}</td>
   </tr>
   <tr>
-    <th>Customer</th>
+    <th>Mijoz</th>
     <td>{{ order.first_name }} {{ order.last_name }}</td>
   </tr>
   <tr>
@@ -39,38 +39,38 @@
     <td>{{ order.address }}, {{ order.postal_code }} {{ order.city }}</td>
   </tr>
   <tr>
-    <th>Total amount</th>
-    <td>${{ order.get_total_cost }}</td>
+    <th>Jami narxi</th>
+    <td>{{ order.get_total_cost }}</td>
   </tr>
   <tr>
     <th>Status</th>
-    <td>{% if order.paid %}Paid{% else %}Pending payment{% endif %}</td>
+    <td>{% if order.paid %}to'landi{% else %}kutilayotgan{% endif %}</td>
   </tr>
 </table>
 
 <div class="module">
-  <h2>Items bought</h2>
+  <h2>Sotib olindi</h2>
   <table style="width:100%">
     <thead>
       <tr>
-        <th>Product</th>
-        <th>Price</th>
-        <th>Quantity</th>
-        <th>Total</th>
+        <th>Maxsulot</th>
+        <th>Narx</th>
+        <th>Miqdor</th>
+        <th>Jami</th>
       </tr>
     </thead>
     <tbody>
       {% for item in order.items.all %}
         <tr class="row{% cycle "1" "2" %}">
           <td>{{ item.product.name }}</td>
-          <td class="num">${{ item.price }}</td>
+          <td class="num">{{ item.price }}</td>
           <td class="num">{{ item.quantity }}</td>
-          <td class="num">${{ item.get_cost }}</td>
+          <td class="num">{{ item.get_cost }}</td>
         </tr>
       {% endfor %}
       <tr class="total">
-        <td colspan="3">Total</td>
-        <td class="num">${{ order.get_total_cost }}</td>
+        <td colspan="3">jami</td>
+        <td class="num">{{ order.get_total_cost }}</td>
       </tr>
     </tbody>
   </table>

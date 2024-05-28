@@ -1,0 +1,26 @@
+{% extends 'bookshop/base.html' %}
+{% load static %}
+
+{% block content %}
+<section class="my_account_area pt--80 pb--55 bg--white">
+    <div class="container my-5">
+        <img class='img-responsive' style="width: 40%; height: 120px; position: relative; left: 100px;" src="https://cdn-icons-png.flaticon.com/512/11753/11753627.png" alt="user profile">
+        <br>
+        <p>Ism: Manzura</p>
+        <p>Familiya: Gulyamova</p>
+        <p>Yosh: 21</p>
+        <h4 style="text-align: center">Foydalangan kitoblari</p>
+        <br>
+        <div class="row">
+            <div class="shadow col-4">
+                {% for i in data %}
+                
+                    <img style="width: 30%;" src="{{ i.image.url }}" alt="." />
+                    <p>{{ i.name }}</p>
+                
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock content %}

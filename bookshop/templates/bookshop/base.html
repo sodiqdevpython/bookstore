@@ -32,7 +32,7 @@
        
 
 
-        <title>{% block title %} BookShop {% endblock %}</title>
+        <title>{% block title %} Kitob {% endblock %}</title>
     </head>
     <body>
         <div class="header--sidebar"></div>
@@ -41,23 +41,28 @@
                 <div class="container-fluid">
                     <div class="row">
                         <div class="col-lg-6 col-md-8 col-sm-6 col-xs-12 ">
-                            <p>Islamabad, Pakistan - Hotline: 0306-2281-637</p>
+                            <p>Online kutubxona</p>
                         </div>
                         <div class="col-lg-6 col-md-4 col-sm-6 col-xs-12 ">
                             <div class="header__actions">
                                 {% if user.is_authenticated %}
-                                    <div class="btn-group ps-dropdown"><a class="dropdown-toggle" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">My Account<i class="fa fa-angle-down"></i></a>
+                                    <div class="btn-group ps-dropdown"><a class="dropdown-toggle" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Akkauntim<i class="fa fa-angle-down"></i></a>
                                         <ul class="dropdown-menu">
-                                            <li><a href="#">My Dashboard</a></li>
-                                            <li><a href="{% url 'logout' %}">Logout</a></li>
+                                            <li><a href="{% url 'dashboard' %}">Akkaunt</a></li>
+                                            <form method="POST" action="{% url 'logout' %}">{% csrf_token %}
+                                                <li>
+                                                    <input class="btn btn-primary shadow" type="submit" value="Chiqish">
+                                                </li>
+                                            </form>
+                                            
                                             
                                         </ul>
                                     </div>
                                 {% else %}
-                                <div class="btn-group ps-dropdown"><a class="dropdown-toggle" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Login & Regiser <i class="fa fa-angle-down"></i></a>
+                                <div class="btn-group ps-dropdown"><a class="dropdown-toggle" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Kirish & Ro'yxatdan o'tish <i class="fa fa-angle-down"></i></a>
                                     <ul class="dropdown-menu">
-                                        <li><a href="{% url 'login' %}">Login</a></li>
-                                        <li><a href="{% url 'register' %}"> Register</a></li>
+                                        <li><a href="{% url 'login' %}">Kirish</a></li>
+                                        <li><a href="{% url 'register' %}"> Ro'yxatdan o'tish</a></li>
                                     </ul>
                                 </div>
                                 {% endif %}
@@ -74,12 +79,11 @@
                     </div>
                     <div class="center">
                         <ul class="main-menu menu">
-                            <li class="current-menu-item "><a href="{% url 'index' %}">HOME</a></li>
-                            <li><a href="{% url 'product_list' %}">CATEGORY</a></li>
+                            <li class="current-menu-item "><a href="{% url 'index' %}">Asosiy</a></li>
+                            <li><a href="{% url 'product_list' %}">Kataloglar</a></li>
                             
-                            <li><a href="#">About</a></li>
                             
-                            <li><a href="{% url 'contact_us' %}">Contact</a></li>
+                            <li><a href="{% url 'contact_us' %}">Biz bilan bog'lanish</a></li>
                         </ul>
                     </div>
                     <div class="right">
@@ -93,8 +97,8 @@
                                     <div class="ps-cart-item">
                                         <div class="ps-cart-item__thumbnail"><a href="{{ product.get_absolute_url }}"></a><img src="{{product.image.url}}" alt=""></div>
                                         <div class="ps-cart-item__content">
-                                           <a class="ps-cart-item__title" href="{{ product.get_absolute_url }}"><small>{{ product.name }} <br> Single Price ${{ item.price }}</small></a>
-                                           <p> Total Quantity: {{ item.quantity }}x<span> <br> Total Price ${{ item.total_price }}</span></p>
+                                           <a class="ps-cart-item__title" href="{{ product.get_absolute_url }}"><small>{{ product.name }} <br> Bittasini narxi{{ item.price }}</small></a>
+                                           <p> Jami miqdori: {{ item.quantity }}x<span> <br> Jami narxi {{ item.total_price }}</span></p>
                                         </div>
                                         
                                     </div>
@@ -104,12 +108,12 @@
                                 {% endfor %}
                                 <div class="ps-cart__total">
                                     
-                                    <p>Item Total:<span>${{ cart.get_total_price }}</span></p>
+                                    <p>Jami:<span>{{ cart.get_total_price }}</span></p>
                                 </div>
                                 {% if cart.get_total_price == 0 %}
-                                    <div class="ps-cart__footer"><a class="ps-btn" >Cart is Empty<i class="ps-icon-arrow-left"></i></a></div>
+                                    <div class="ps-cart__footer"><a class="ps-btn" >Savatingiz bo'sh<i class="ps-icon-arrow-left"></i></a></div>
                                 {% else %}
-                                    <div class="ps-cart__footer"><a class="ps-btn" href="{% url 'order_create' %}">Check out<i class="ps-icon-arrow-left"></i></a></div>
+                                    <div class="ps-cart__footer"><a class="ps-btn" href="{% url 'order_create' %}">Xarid qilish<i class="ps-icon-arrow-left"></i></a></div>
                                 {% endif %}
                                 
                             </div>
@@ -117,7 +121,7 @@
                         
                         <form class="ps-form--search" action="{% url 'search' %}" method="post">
                             {% csrf_token %}
-                            <input class="form-control" name="search" type="text" placeholder="Search Product…">
+                            <input class="form-control" name="search" type="text" placeholder="Kitob qidirish ...">
                             <button><i class="ps-icon-search"></i></button>
                         </form>
                         
@@ -136,28 +140,8 @@
                     <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12 ">
                         <div class="ps-iconbox">
                             <header><i class="ps-icon-delivery"></i>
-                                <h3>FREE SHIPPING</h3>
-                                <p>ON ORDER OVER $199</p>
+                                <h3>Tekin yetkazib berish</h3>
                             </header>
-                            <p>Want to track a package? Find tracking information and order details from Your Orders.</p>
-                        </div>
-                    </div>
-                    <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12 ">
-                        <div class="ps-iconbox">
-                            <header><i class="ps-icon-wallet"></i>
-                                <h3>100% MONEY BACK.</h3>
-                                <p>WITHIN 30 DAYS AFTER DELIVERY.</p>
-                            </header>
-                            <p>You may return most new, unopened items sold within 30 days of delivery for a full refund.</p>
-                        </div>
-                    </div>
-                    <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12 ">
-                        <div class="ps-iconbox">
-                            <header><i class="ps-icon-customer-service"></i>
-                                <h3>SUPPORT 24/7.</h3>
-                                <p>WE CAN HELP YOU ONLINE.</p>
-                            </header>
-                            <p>We offer a 24/7 customer hotline so you’re never alone if you have a question.</p>
                         </div>
                     </div>
                 </div>
@@ -170,11 +154,10 @@
                     <div class="row">
                         <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 ">
                             <div class="ps-site-info site-info"><a class="ps-logo" href="index.html"><img src="{% static 'bookshop/images/logo.png' %}" alt=""></a>
-                                <p>Xuper is a global fashion destination for 20-somethings. We sell cutting-edge fashion and offer a wide variety of fashion-related content, making Xuper Store the hub of a thriving fashion community.</p>
                                 <div class="ps-site-info__contact">
-                                    <h4>Contact Info</h4>
-                                    <p>Islamabad, Pakistan</p>
-                                    <p>(+92 ) 3062 281637</p>
+                                    <h4>Bog'lanish uchun</h4>
+                                    <p>Toshkent shaxar, Yunusobod</p>
+                                    <p>(+998) 99 123 45 67</p>
                                 </div>
                                 <ul class="ps-social">
                                     <li><a href="https://www.facebook.com/sk7698277"><i class="fa fa-facebook"></i></a></li>
@@ -183,55 +166,12 @@
                                 </ul>
                             </div>
                         </div>
-                        <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 ">
-                            <div class="row">
-                                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12 ">
-                                    <div class="ps-widget ps-widget--footer widget widget_footer">
-                                        <h2 class="ps-widget__title">Our Branding</h2>
-                                        <ul class="ps-list--line">
-                                            <li><a class="text-uppercase" href="#">DKNY</a></li>
-                                            <li><a class="text-uppercase" href="#">GUCCI</a></li>
-                                            <li><a class="text-uppercase" href="#">BANANA & DOLCE</a></li>
-                                            <li><a class="text-uppercase" href="#">HERMER</a></li>
-                                            <li><a class="text-uppercase" href="#">CHANEL</a></li>
-                                        </ul>
-                                    </div>
-                                </div>
-                                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12 ">
-                                    <div class="ps-widget ps-widget--footer widget widget_footer">
-                                        <h2 class="ps-widget__title">Customer Care</h2>
-                                        <ul class="ps-list--line">
-                                            <li><a href="#">My Account</a></li>
-                                            <li><a href="#">Track your Order</a></li>
-                                            <li><a href="#">Customer Service</a></li>
-                                            <li><a href="#">FAQs</a></li>
-                                            <li><a href="#">Product Support</a></li>
-                                        </ul>
-                                    </div>
-                                </div>
-                                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12 ">
-                                    <div class="ps-widget ps-widget--footer widget widget_footer">
-                                        <h2 class="ps-widget__title">Your Account</h2>
-                                        <ul class="ps-list--line">
-                                            <li><a href="#">Your account</a></li>
-                                            <li><a href="#">Newsletter</a></li>
-                                            <li><a href="#">Information</a></li>
-                                            <li><a href="#">Payment menthod</a></li>
-                                            <li><a href="#">Your wishlist</a></li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
                     </div>
                 </div>
             </div>
             <div class="ps-footer__copyright">
                 <div class="ps-container">
                     <div class="row">
-                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 ">
-                            <p>&copy; Copyright  <span>2020</span>. Design by <a href="https://www.twitter.com/sk7698277">Sajjad Khan</a>.</p>
-                        </div>
                         <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 ">
                             <div class="ps-footer__payment-methods"><a href="#"><img src="{% static 'bookshop/images/payment-method/paypal.png' %}" alt=""></a><a href="#"><img src="{% static 'bookshop/images/payment-method/visa.png' %}" alt=""></a><a href="#"><img src="{% static 'bookshop/images/payment-method/master-card.png' %}" alt=""></a></div>
                         </div>
@@ -273,14 +213,10 @@
                                         <option value="2">5</option>
                                     </select>
                                 </div>
-                                <h1>Air strong  training</h1>
-                                <p class="ps-product__category"><a href="#">  Men shoes</a>,<a href="#">  Nike</a>,<a href="#">  Jordan</a></p>
-                                <h3 class="ps-product__price"><span>£</span> 115 <del><span>£</span> 330</del></h3>
-                                <div class="ps-product__short-desc">
-                                    <p>The Nike Free RN 2017 Men's Running Shoe weighs less than previous versions and features an updated knit material…</p>
-                                </div>
+                                
+
                                 <div class="ps-product__block ps-product__style">
-                                    <h4>CHOOSE YOUR COLOR</h4>
+                                    <h4>Rangni tanlang</h4>
                                     <div class="ps-radio ps-radio--inline">
                                         <input class="form-control" type="radio" id="radio-0" name="type-1">
                                         <label for="radio-0"></label>
@@ -299,7 +235,7 @@
                                     </div>
                                 </div>
                                 <div class="ps-product__block ps-product__size">
-                                    <h4>CHOOSE SIZE & QUANTITY<a href="#">Size chart</a></h4>
+                                    <h4>O'lchamni tanlash & Miqdori bilan<a href="#">O'lchami</a></h4>
                                     <select class="ps-select selectpicker" title="Select Size">
                                         <option value="6">7</option>
                                     </select>
@@ -307,7 +243,7 @@
                                         <input class="form-control" type="text" value="1"><span class="up"></span><span class="down"></span>
                                     </div>
                                 </div>
-                                <div class="ps-product__shopping"><a class="ps-btn" href="cart.html">Order Now</a>
+                                <div class="ps-product__shopping"><a class="ps-btn" href="cart.html">Xarid qilish</a>
                                     <div class="ps-product__actions"><a class="mr-10" href="whishlist.html"><i class="ps-icon-heart"></i></a><a href="compare.html" title="Compare"><i class="ps-icon-compare"></i></a></div>
                                 </div>
                             </div>

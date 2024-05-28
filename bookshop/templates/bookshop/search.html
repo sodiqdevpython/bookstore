@@ -1,11 +1,11 @@
 {% extends 'bookshop/base.html' %}
 {% load static %}
-<title>{% block title %} {% if category %}{{ category.name }}{% else %} All Products {% endif %}  {% endblock%}</title>
+<title>{% block title %} {% if category %}{{ category.name }}{% else %} Barcha maxsulotlar {% endif %}  {% endblock%}</title>
 {% block content %}
     <div class="ps-section pt-80 pb-30">
         <div class="ps-container">
             <div class="ps-section__header text-center">
-                <h2 class="ps-section__title">Search Results for {{searh_query}}</h2>
+                <h2 class="ps-section__title">Natijalar {{searh_query}}</h2>
                 
             </div>
              <!-- products  -->
@@ -21,7 +21,7 @@
                                         </ul>
                                     </div>
                                     <div class="ps-product__content"><a class="ps-product__title" href="{% url 'product_detail' query.slug %}">{{ query.name }}</a>
-                                        <p class="ps-product__price">${{ query.price }}</p>
+                                        <p class="ps-product__price">{{ query.price }}</p>
                                     </div>
                             </div>
                         </div>

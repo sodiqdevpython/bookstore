@@ -1,11 +1,10 @@
 {% extends 'bookshop/base.html' %}
 {% load static %}
-<title>{% block title %} Cart Details | Bookshop {% endblock%}</title>
+<title>{% block title %} Kitob haqida {% endblock%}</title>
 {% block content %} 
     <div class="ps-hero">
         <div class="container">
-            <h3>YOUR CART</h3>
-            <p>Page Cart</p>
+            <h3>Savatingiz</h3>
         </div>
     </div>
     
@@ -17,10 +16,10 @@
                 <table class="table ps-cart__table">
                     <thead>
                         <tr>
-                            <th>All Products</th>
-                            <th>Price</th>
-                            <th>Quantity</th>
-                            <th>Total</th>
+                            <th>Hamma kitoblar</th>
+                            <th>Narxi</th>
+                            <th>Miqdori</th>
+                            <th>Jami</th>
                             <th></th>
                         </tr>
                     </thead>
@@ -33,7 +32,7 @@
                                         <img class="mr-15" src="{% if product.image %}{{ product.image.url }}
                                         {% else %}{% static 'img/no_image.png' %}{% endif %}" alt="">
                                         {{ product.name }}</a></td>
-                                    <td>${{ item.price }}</td>
+                                    <td>{{ item.price }}</td>
                                     <td>
                                         <div class="form-group--number">
                                             <form action="{% url 'cart_add' product.id %}" method="post">
@@ -46,7 +45,7 @@
                                             
                                         </div>
                                     </td>
-                                    <td>${{ item.total_price }}</td>
+                                    <td>{{ item.total_price }}</td>
                                     <td>
                                         <form action="{% url 'cart_remove' product.id %}" method="post">
                                             <button class="ps-remove"></button>
@@ -67,29 +66,29 @@
                                
                                 <form action="{% url 'coupons:apply' %}" method="post">
                                     
-                                     <input class="form-control" name="coupon" type="text" placeholder="Promo Code">
+                                     <input class="form-control" name="coupon" type="text" placeholder="Promo kod">
                                     {% csrf_token %}
                                 </form>
                             </div>
                         </div>
                         <div class="form-group">
-                            <a href="{% url 'product_list' %}"><button class="ps-btn ps-btn--gray">Continue Shopping</button></a>
+                            <a href="{% url 'product_list' %}"><button class="ps-btn ps-btn--gray">Xaridda davom etish</button></a>
                         </div>
                     </div>
                     <div class="ps-cart__total">
                         {% if cart.coupon %}
                             
-                                <h3>Subtotal <span>${{ cart.get_total_price|floatformat:2 }}</span></h3>
-                                <h3>"{{ cart.coupon.code }}" coupon
-                                    ({{ cart.coupon.discount }}% off)<span style="color: red;">- ${{ cart.get_discount|floatformat:2 }}</span></h3>
+                                <h3>Subtotal <span>{{ cart.get_total_price|floatformat:2 }}</span></h3>
+                                <h3>"{{ cart.coupon.code }}" kupon
+                                    ({{ cart.coupon.discount }}% chegirma)<span style="color: red;">- ${{ cart.get_discount|floatformat:2 }}</span></h3>
 
                         {% endif %}
-                        <h3>Total Price: <span> ${{ cart.get_total_price_after_discount|floatformat:2 }}</span></h3>
+                        <h3>Jami narx: <span>{{ cart.get_total_price_after_discount|floatformat:2 }}</span></h3>
 
                         {% if cart.get_total_price == 0 %}
-                        <button class="ps-btn" >Cart is Empty</button>
+                        <button class="ps-btn" >Savat bo'sh</button>
                         {% else %}
-                            <a class="ps-btn" href="{% url 'order_create' %}">Process to checkout</a>
+                            <a class="ps-btn" href="{% url 'order_create' %}">Ok</a>
                         {% endif %}
                         
                     </div>

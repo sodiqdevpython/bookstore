@@ -1,6 +1,7 @@
-from django.shortcuts import render,redirect,HttpResponse
+from django.shortcuts import render,redirect
 from django.contrib.auth.models import User
 from django.contrib import messages,auth
+from bookshop.models import Product
 # Create your views here.
 
 
@@ -52,4 +53,5 @@ def login(request):
 
 
 def dashboard(request):
-    return HttpResponse("dashboard")
+    data = Product.objects.all()[:3]
+    return render(request, 'users/profile.html', {'data': data})

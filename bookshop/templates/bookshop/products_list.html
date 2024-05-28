@@ -1,13 +1,11 @@
 {% extends 'bookshop/base.html' %}
 {% load static %}
-<title>{% block title %} {% if category %}{{ category.name }}{% else %} All Products {% endif %}  {% endblock%}</title>
+<title>{% block title %} {% if category %}{{ category.name }}{% else %} Barcha maxsulotlar {% endif %}  {% endblock%}</title>
 {% block content %}
     <div class="ps-section pt-80 pb-30">
         <div class="ps-container">
             <div class="ps-section__header text-center">
-                <h2 class="ps-section__title">ALL  CATEGORIES </h2>
-                <p>Featured collections created and curated by our editors</p>
-                
+                <h2 class="ps-section__title">Barcha kataloglar </h2>
             </div>
 
     <div class="ps-section ps-section--jewelry ps-section--special-product masonry-root pt-30 pb-80" style="margin-top:-5%;">
@@ -16,7 +14,7 @@
                 
                 <ul class="ps-masonry__filter">
 
-                    <li {% if not category %} class="current" {% endif %}><a href="{% url 'product_list' %}" data-filter="*">All</a></li>
+                    <li {% if not category %} class="current" {% endif %}><a href="{% url 'product_list' %}" data-filter="*">Hammasi</a></li>
                     
                     {% for c in categories %}
                         <li {% if category.slug == c.slug %} class="current" {% endif %}><a href="{{ c.get_absolute_url }}" data-filter=".bracelets">{{ c.name }}</a></li>
@@ -37,7 +35,7 @@
                                         </ul>
                                     </div>
                                     <div class="ps-product__content"><a class="ps-product__title" href="{% url 'product_detail' product.slug %}">{{ product.name }}</a>
-                                        <p class="ps-product__price">${{ product.price }}</p>
+                                        <p class="ps-product__price">{{ product.price }}</p>
                                     </div>
                             </div>
                         </div>

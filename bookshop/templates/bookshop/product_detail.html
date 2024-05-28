@@ -1,6 +1,6 @@
 {% extends 'bookshop/base.html' %}
 {% load static %}
-<title>{% block title %} Product Detail{% endblock%}</title>
+<title>{% block title %} Kitob haqida {% endblock%}</title>
 {% block content %}
 
     <div class="ps-hero">
@@ -47,10 +47,10 @@
                             </div> -->
                             <h1>{{ product.name }}</h1>
                             
-                            <h3 class="ps-product__price"><span>$</span>{{product.price}}</h3>
-                            <p class="ps-product__category"><b>Category :</b>  <br>{{ product.category}}</p>
+                            <h3 class="ps-product__price"><span></span>{{product.price}}</h3>
+                            <p class="ps-product__category"><b>Katalog :</b>  <br>{{ product.category}}</p>
                             <div class="ps-product__short-desc">
-                                <p><b>Product Description :</b> <br>{{ product.description }}</p>
+                                <p><b>Kitob haqida :</b> <br>{{ product.description }}</p>
                             </div>
                             
                             <form action="{% url 'cart_add' product.id  %}" method="post">
@@ -58,7 +58,7 @@
                                 {% csrf_token %}
                                 <div class="ps-product__shopping">
                                     <br>
-                                    <input class="ps-btn" type="submit" value="Add to cart">
+                                    <input class="ps-btn" type="submit" value="Xarid qilish">
                                 </div>
                                
                             </form>
@@ -68,8 +68,8 @@
                 </div>
                 <div class="ps-product__content">
                     <ul class="tab-list" role="tablist">
-                        <li class="active"><a href="#tab_01" aria-controls="tab_01" role="tab" data-toggle="tab">Overview</a></li>
-                        <li><a href="#tab_02" aria-controls="tab_02" role="tab" data-toggle="tab">Review</a></li>
+                        <li class="active"><a href="#tab_01" aria-controls="tab_01" role="tab" data-toggle="tab">Xulosa</a></li>
+                        <li><a href="#tab_02" aria-controls="tab_02" role="tab" data-toggle="tab">Izoh</a></li>
                         
                        
                     </ul>
@@ -81,7 +81,7 @@
                     </div>
 
                     <div class="tab-pane " role="tabpanel" id="tab_02">
-                        <p class="mb-20"> People Reviews for <strong>{{ product.name }}</strong></p>
+                        <p class="mb-20"> Izoh beruvchilar <strong>{{ product.name }}</strong></p>
                         
                             <div class="ps-review">
                             {% for review in all_reviews %}
@@ -110,12 +110,12 @@
                                     {% endfor %}
                                 </ul>
                             {% endif %}
-                            <h4>ADD YOUR REVIEW</h4>
+                            <h4>Izoh qoldiring</h4>
                             <div class="row">
                           
                                 <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 ">
                                     <div class="form-group">
-                                        <label>Name:<span>*</span></label>
+                                        <label>Ism:<span>*</span></label>
                                         <input class="form-control" type="text" placeholder="" name="name">
                                     </div>
                                     <div class="form-group">
@@ -123,7 +123,7 @@
                                         <input class="form-control" type="email" placeholder="" name="email">
                                     </div>
                                     <div class="form-group">
-                                        <label>Your rating<span></span></label>
+                                        <label>Qancha yulduz qo'yasiz<span></span></label>
                                         <select class="ps-rating" name="rating">
                                             <option value="1">1</option>
                                             <option value="2">2</option>
@@ -135,11 +135,11 @@
                                 </div>
                                 <div class="col-lg-8 col-md-8 col-sm-6 col-xs-12 ">
                                     <div class="form-group">
-                                        <label>Your Review:</label>
+                                        <label>Izohingiz:</label>
                                         <textarea class="form-control" rows="6" name="review"></textarea>
                                     </div>
                                     <div class="form-group">
-                                        <button class="ps-btn--outline">Submit Reviews</button>
+                                        <button class="ps-btn--outline">Saqlash</button>
                                     </div>
                                 </div>
                             
